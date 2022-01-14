@@ -45,7 +45,7 @@ class Mac_Free:
           Mac_Host = ':'.join(Mac_Cook[i:i+2] for i in range(0,6,2)).upper()
           self.Mac_addr =  apple + Mac_Host 
       def Random_Mac(self):
-          Mac_Cook  ="".join( f'{random.randrange(16**16):x}')
+          Mac_Cook  ="00"+"".join( f'{random.randrange(16**16):x}')
           self.Mac_addr = ':'.join(Mac_Cook[i:i+2] for i in range(0,12,2)).upper()
       def Wrire_Mac(self):
           self.Mac_addr = self.args.write
@@ -66,9 +66,9 @@ class Mac_Free:
           parser.add_argument( '-I',"--Interface"  ,dest = "Interface"   ,required=True   , action=None )
           parser.add_argument( '-C',"--Company"    ,dest = "Company"     ,required=False  , action=None )
           parser.add_argument( '-r',"--random"     ,dest = "random"      ,required=False  , action=None )
-          parser.add_argument( '-W',"--write"      ,dest = "write"       ,required=False  , action=None )
-          parser.add_argument( '-R',"--Reboot"     ,dest = "Wireshark"   ,required=False  , action=None )
-          parser.add_argument( '-T',"--Time  "     ,dest = "Wireshark"   ,required=False  , action=None )
+          parser.add_argument( '-W',"--write"      ,dest = "cook"        ,required=False  , action=None )
+          parser.add_argument( '-R',"--Reboot"     ,dest = "reboot"      ,required=False  , action=None )
+          parser.add_argument( '-T',"--Time  "     ,dest = "time"        ,required=False  , action=None )
           self.args = parser.parse_args()
           if len(sys.argv)> 1 :
              pass
@@ -115,13 +115,15 @@ class Mac_Free:
           if self.args.random:
              self.Random_Mac()
              self.mac_change()  
+             print("[+] Current Mac ------------| ",self.Current_Mac_G)
+             print ("[+] New Mac     ------------| ", self.Mac_addr +" [ random Mac ]")
           if self.args.write:
-             self.Write_Mac()
+             self.Wrire_Mac()
              self.mac_change()
-             
+             print("[+] Current Mac ------------| ",self.Current_Mac_G)
+             print ("[+] New Mac     ------------| ", self.Mac_addr +" [ Cook Mac ]")
        
 if __name__=='__main__':
    Mac_Free()
-
 
 
