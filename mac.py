@@ -6,7 +6,9 @@ import subprocess
 import sys
 import re 
 import os 
+import shutil
 
+from subprocess import Popen, PIPE, check_output 
 class Mac_Free:
       
       def __init__(self):
@@ -48,7 +50,17 @@ class Mac_Free:
           Mac_Cook  ="00"+"".join( f'{random.randrange(16**16):x}')
           self.Mac_addr = ':'.join(Mac_Cook[i:i+2] for i in range(0,12,2)).upper()
       def Wrire_Mac(self):
-          self.Mac_addr = self.args.write
+          Mac_Cook = self.args.write
+          Mac_Format = re.compile(r'(?:[0-9a-fA-F]:?){12}')
+          Mac_found = re.findall(Mac_Format , Mac_Cook )
+          if Mac_Cook in Mac_found:
+             self.Mac_addr = Mac_Cook
+          else:
+             print("\n"+"[+] Invalid Mac address")
+             print("[+] Invalid literal for int() with base 16")
+             print("[+] Mac format = xx:xx:xx:xx:xx:xx")
+             exit() 
+      
       def mac_change(self):
           command  = "ifconfig  "+self.args.Interface + " | grep ether"
           Current_Mac_P = subprocess.check_output (command,shell=True).decode('utf-8')
@@ -59,16 +71,27 @@ class Mac_Free:
           ifconfig_mac_change = "sudo ifconfig "+self.args.Interface+ " hw ether "+self.Mac_addr
           ifconfig_up = "sudo ifconfig "+self.args.Interface+" up"
           os.system(ifconfig_down)
-          os.system(ifconfig_mac_change)
+          config  = os.system(ifconfig_mac_change)
+          if config  == 256 :
+             print("\n[+] Cannot assign requested address",self.Mac_addr)
+             print("[+] Strat your mac '00' ")
+             os.system(ifconfig_up) 
+             exit()
           os.system(ifconfig_up) 
       def parese_args(self):
           parser = argparse.ArgumentParser( description="Usage: <OPtion> <arguments> ")
-          parser.add_argument( '-I',"--Interface"  ,dest = "Interface"   ,required=True   , action=None )
-          parser.add_argument( '-C',"--Company"    ,dest = "Company"     ,required=False  , action=None )
-          parser.add_argument( '-r',"--random"     ,dest = "random"      ,required=False  , action=None )
-          parser.add_argument( '-W',"--write"      ,dest = "cook"        ,required=False  , action=None )
-          parser.add_argument( '-R',"--Reboot"     ,dest = "reboot"      ,required=False  , action=None )
-          parser.add_argument( '-T',"--Time  "     ,dest = "time"        ,required=False  , action=None )
+          parser.add_argument( '-I' ,"--Interface"   ,dest = "Interface"   ,required=True\
+          , action=None ,help ="User InterFace ")
+          parser.add_argument( '-C  ' , "--Company"  ,dest = "Company"     ,required=False\
+          , action=None ,help ="Company [sony,Dell,Samsung,Cisco,Apple]  -C Apple")
+          parser.add_argument( '-r  ' , "--random"   ,dest = "random"      ,required=False\
+          , action=None ,help ="Set random mac for the interface : set  -r true" )
+          parser.add_argument( '-W  ' , "--write"    ,dest = "write"       ,required=False\
+          , action=None ,help ="write you mac ['can use for spoofing mac address']" )
+          parser.add_argument( '-R  ' , "--Reboot"   ,dest = "reboot"      ,required=False\
+          , action=None ,help ="Set the FreeMac working @reboot to change the Mac every Reboot")
+          parser.add_argument( '-T  ' , "--Time"     ,dest = "time"        ,required=False\
+          , action=None ,help ="Set the FreeMac working Schedul to change the Mac every set time by in minutes from 1 to 60 ")
           self.args = parser.parse_args()
           if len(sys.argv)> 1 :
              pass
@@ -82,48 +105,49 @@ class Mac_Free:
              and len(self.args.Company)==4:
                   self.Sony_Mac() 
                   self.mac_change()
-                  print("[+] Current Mac ------------| ",self.Current_Mac_G)
+                  print("\n[+] Current Mac ------------| ",self.Current_Mac_G)
                   print ("[+] New Mac     ------------| ", self.Mac_addr +" [ Sony Mac ]")
              elif "Dell" in  self.args.Company\
              and len(self.args.Company)==4:
                   self.Dell_Mac() 
                   self.mac_change()
-                  print("[+] Current Mac ------------| ",self.Current_Mac_G)
+                  print("\n[+] Current Mac ------------| ",self.Current_Mac_G)
                   print ("[+] New Mac     ------------| ", self.Mac_addr +" [ Dell Mac ]")
              elif "Samsung" in  self.args.Company\
              and len(self.args.Company)==7:
                   self.Samsung_Mac() 
                   self.mac_change()
-                  print("[+] Current Mac ------------| ",self.Current_Mac_G)
+                  print("\n[+] Current Mac ------------| ",self.Current_Mac_G)
                   print ("[+] New Mac     ------------| ", self.Mac_addr +" [ Samsung Mac ]")
              elif "Cisco" in  self.args.Company\
              and len(self.args.Company)==5:
                   self.Cisco_Mac()
                   self.mac_change() 
-                  print("[+] Current Mac ------------| ",self.Current_Mac_G)
+                  print("\n[+] Current Mac ------------| ",self.Current_Mac_G)
                   print ("[+] New Mac     ------------| ", self.Mac_addr +" [ Cisco Mac ]")
              elif "Apple" in  self.args.Company\
              and len(self.args.Company)==5:
                   self.Apple_Mac()
                   self.mac_change()
-                  print("[+] Current Mac ------------| ",self.Current_Mac_G)
+                  print("\n[+] Current Mac ------------| ",self.Current_Mac_G)
                   print ("[+] New Mac     ------------| ", self.Mac_addr +" [ Apple Mac ]")
              else:
-                 print("[Sony,Dell,Sumsung,Cisco,Apple]"\
+                 print("[Sony,Dell,Samsung,Cisco,Apple]"\
                        +'\n'+"the OPtion aveblio")
                  exit() 
           if self.args.random:
              self.Random_Mac()
              self.mac_change()  
-             print("[+] Current Mac ------------| ",self.Current_Mac_G)
+             print("\n[+] Current Mac ------------| ",self.Current_Mac_G)
              print ("[+] New Mac     ------------| ", self.Mac_addr +" [ random Mac ]")
           if self.args.write:
              self.Wrire_Mac()
              self.mac_change()
-             print("[+] Current Mac ------------| ",self.Current_Mac_G)
+             print("\n[+] Current Mac ------------| ",self.Current_Mac_G)
              print ("[+] New Mac     ------------| ", self.Mac_addr +" [ Cook Mac ]")
-       
+          
 if __name__=='__main__':
    Mac_Free()
+
 
 
