@@ -29,7 +29,7 @@ sudo ./FreeMac.py -I eth0 -C Sony
  *  is options use to write your own mac 
  *  this options can use to spoofing mac address with  another device in same network 
 ```
-    sudo ./freeMac.py -W 00:AA:BB:CC:DD:EE 
+    sudo ./freeMac.py -I etho -W 00:AA:BB:CC:DD:EE 
 ```    
 
 ###  Note :-
