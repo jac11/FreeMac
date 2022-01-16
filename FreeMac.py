@@ -20,13 +20,25 @@ class Mac_Free:
         
          
          self.parese_args()
-         
+         self.Check_InterFace()
          linker  = "ip link show "+self.args.Interface
          link_Mac= subprocess.check_output (linker,shell=True).decode('utf-8')  
          real_Mac_split = link_Mac.split()
          self.real_Mac = real_Mac_split[-1] 
          self.Main_run()
-
+      def Check_InterFace(self):
+          if self.args.Interface:
+             try:
+                commad_ifconfig = "ifconfig | grep  "+ self.args.Interface
+                commad_ifconfig = subprocess.check_output (commad_ifconfig,shell=True).decode('utf-8')
+             except Exception:
+                print("\n[+] Device [ " +self.args.Interface+ " ] does not exist \n")
+                print("\n[+] Device available :\n"+"="*20+"\n")
+                all_Interface = os.listdir('/sys/class/net/') 
+                for i in all_Interface :
+                    print('[+] Interface : ', i)
+                print()    
+                exit()
       def Sony_Mac(self):
           sony = ['FC:0F:E6:','00:12:EE:','00:1E:DC:','78:84:3C:']
           sony = random.choice(sony)          
@@ -116,7 +128,7 @@ class Mac_Free:
                   self.mac_change()
                   print("\n[+] Current Mac ------------| ",self.Current_Mac_G)
                   print("[+] Real MAC    ------------| ",self.real_Mac)
-                  print ("[+] New Mac     ------------| ", self.Mac_addr +" [ Sony Mac ]")
+                  print ("[+] New Mac     ------------| ", self.Mac_addr +" [ Sony Mac ]\n")
 
              elif "Dell" in  self.args.Company.capitalize()\
              and len(self.args.Company)==4:
@@ -125,7 +137,7 @@ class Mac_Free:
                   self.mac_change()
                   print("\n[+] Current Mac ------------| ",self.Current_Mac_G)
                   print("[+] Real MAC    ------------| ",self.real_Mac)
-                  print ("[+] New Mac     ------------| ", self.Mac_addr +" [ Dell Mac ]")
+                  print ("[+] New Mac     ------------| ", self.Mac_addr +" [ Dell Mac ]\n")
 
              elif "Samsung" in  self.args.Company.capitalize()\
              and len(self.args.Company)==7:
@@ -134,7 +146,7 @@ class Mac_Free:
                   self.mac_change()
                   print("\n[+] Current Mac ------------| ",self.Current_Mac_G)
                   print("[+] Real MAC    ------------| ",self.real_Mac)
-                  print ("[+] New Mac     ------------| ", self.Mac_addr +" [ Samsung Mac ]")
+                  print ("[+] New Mac     ------------| ", self.Mac_addr +" [ Samsung Mac ]\n")
 
              elif "Cisco" in  self.args.Company.capitalize()\
              and len(self.args.Company)==5:
@@ -143,7 +155,7 @@ class Mac_Free:
                   self.mac_change() 
                   print("\n[+] Current Mac ------------| ",self.Current_Mac_G)
                   print("[+] Real MAC    ------------| ",self.real_Mac)
-                  print ("[+] New Mac     ------------| ", self.Mac_addr +" [ Cisco Mac ]")
+                  print ("[+] New Mac     ------------| ", self.Mac_addr +" [ Cisco Mac ]\n")
 
              elif "Apple" in  self.args.Company.capitalize()\
              and len(self.args.Company)==5:
@@ -155,7 +167,7 @@ class Mac_Free:
                   print ("[+] New Mac     ------------| ", self.Mac_addr +" [ Apple Mac ]")
              else:
                 
-                 print("\n[+]available option ----------| [Sony,Dell,Samsung,Cisco,Apple]")
+                 print("\n[+]available option ----------| [Sony,Dell,Samsung,Cisco,Apple]\n")
                  exit() 
           if self.args.random :
              if 'true' in sys.argv:
@@ -164,10 +176,10 @@ class Mac_Free:
                 self.mac_change()  
                 print("\n[+] Current Mac ------------| ",self.Current_Mac_G)
                 print("[+] Real MAC    ------------| ",self.real_Mac)
-                print ("[+] New Mac     ------------| ", self.Mac_addr +" [ random Mac ]")
+                print ("[+] New Mac     ------------| ", self.Mac_addr +" [ random Mac ]\n")
              else:
                  print(Banner)
-                 print("\n[+]available option ----------| [-r true]")
+                 print("\n[+]available option ----------| [-r true]\n")
                  exit()
           if self.args.write:
           
@@ -175,7 +187,7 @@ class Mac_Free:
              self.mac_change()             
              print("\n[+] Current Mac ------------| ",self.Current_Mac_G)
              print("[+] Real MAC    ------------| ",self.real_Mac)
-             print ("[+] New Mac     ------------| ", self.Mac_addr +" [ Cook Mac ]")
+             print ("[+] New Mac     ------------| ", self.Mac_addr +" [ Cook Mac ]\n")
           
 if __name__=='__main__':
    Mac_Free()
