@@ -16,20 +16,20 @@
 
 #### * To  Use Company mac use -C/--Company  < xxxx/Xxxxx > 
    * available company is [ Sony , Dell , Samsung , Cisco , Apple]
-   * ./FreeMac.py -I eth0 -C Sony [ or any company name form the list avelable ]
+   * sudo ./FreeMac.py -I eth0 -C Sony [ or any company name form the list avelable ]
 ```
-./FreeMac.py -I eth0 -C Sony
+sudo ./FreeMac.py -I eth0 -C Sony
 ````
 #### * random Mac
 * to use random mac use -r and set argument to true
 ```
-   ./FreeMac.py -I eth0 -r true
+   sudo ./FreeMac.py -I eth0 -r true
 ```
 #### * Cook Mac/spoofing Mac
  *  is options use to write your own mac 
  *  this options can use to spoofing mac address with  another device in same network 
 ```
-    ./freeMac.py -W 00:AA:BB:CC:DD:EE 
+    sudo ./freeMac.py -W 00:AA:BB:CC:DD:EE 
 ```    
 
 ###  Note :-
