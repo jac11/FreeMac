@@ -24,10 +24,10 @@
 * to use random mac use -r and set argument to true
 ```
    ./FreeMac.py -I eth0 -r true
-   ```
+```
 #### * Cook Mac/spoofing Mac
-     *  is options use to write your own mac 
-     *  this options can use to spoofing mac address with the anther device on same network 
+ *  is options use to write your own mac 
+ *  this options can use to spoofing mac address with  another device in same network 
 ```
     ./freeMac.py -W 00:AA:BB:CC:DD:EE 
 ```    
