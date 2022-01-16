@@ -104,7 +104,6 @@ class Mac_Free:
           if len(sys.argv)> 1 :
              pass
           else:
-            # print(Banner)
              parser.print_help()
              exit()  
 
@@ -112,51 +111,55 @@ class Mac_Free:
           if self.args.Company:
              if "Sony" in  self.args.Company.capitalize()\
              and len(self.args.Company)==4:
-                  print(Banner)
+                 
                   self.Sony_Mac() 
                   self.mac_change()
                   print("\n[+] Current Mac ------------| ",self.Current_Mac_G)
                   print("[+] Real MAC    ------------| ",self.real_Mac)
                   print ("[+] New Mac     ------------| ", self.Mac_addr +" [ Sony Mac ]")
+
              elif "Dell" in  self.args.Company.capitalize()\
              and len(self.args.Company)==4:
-                  print(Banner)
+                 
                   self.Dell_Mac() 
                   self.mac_change()
                   print("\n[+] Current Mac ------------| ",self.Current_Mac_G)
                   print("[+] Real MAC    ------------| ",self.real_Mac)
                   print ("[+] New Mac     ------------| ", self.Mac_addr +" [ Dell Mac ]")
+
              elif "Samsung" in  self.args.Company.capitalize()\
              and len(self.args.Company)==7:
-                  print(Banner)
+                 
                   self.Samsung_Mac() 
                   self.mac_change()
                   print("\n[+] Current Mac ------------| ",self.Current_Mac_G)
                   print("[+] Real MAC    ------------| ",self.real_Mac)
                   print ("[+] New Mac     ------------| ", self.Mac_addr +" [ Samsung Mac ]")
+
              elif "Cisco" in  self.args.Company.capitalize()\
              and len(self.args.Company)==5:
-                  print(Banner)
+              
                   self.Cisco_Mac()
                   self.mac_change() 
                   print("\n[+] Current Mac ------------| ",self.Current_Mac_G)
                   print("[+] Real MAC    ------------| ",self.real_Mac)
                   print ("[+] New Mac     ------------| ", self.Mac_addr +" [ Cisco Mac ]")
+
              elif "Apple" in  self.args.Company.capitalize()\
              and len(self.args.Company)==5:
-                  print(Banner)
+                  
                   self.Apple_Mac()
                   self.mac_change()
                   print("\n[+] Current Mac ------------| ",self.Current_Mac_G)
                   print("[+] Real MAC    ------------| ",self.real_Mac)
                   print ("[+] New Mac     ------------| ", self.Mac_addr +" [ Apple Mac ]")
              else:
-                 print(Banner)
+                
                  print("\n[+]available option ----------| [Sony,Dell,Samsung,Cisco,Apple]")
                  exit() 
           if self.args.random :
              if 'true' in sys.argv:
-                print(Banner)
+              
                 self.Random_Mac()
                 self.mac_change()  
                 print("\n[+] Current Mac ------------| ",self.Current_Mac_G)
@@ -167,7 +170,7 @@ class Mac_Free:
                  print("\n[+]available option ----------| [-r true]")
                  exit()
           if self.args.write:
-             print(Banner)
+          
              self.Wrire_Mac()
              self.mac_change()             
              print("\n[+] Current Mac ------------| ",self.Current_Mac_G)
