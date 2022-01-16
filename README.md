@@ -3,6 +3,11 @@
 ### Network script Change mac address 
 * A media access control address (MAC address) is a unique identifier assigned to a network interface controller (NIC) for use as a network address in       communications within a network segment. This use is common in most IEEE 802 networking technologies, including Ethernet, Wi-Fi, and Bluetooth. Within the Open Systems Interconnection (OSI) network model, MAC addresses are used in the medium access control protocol sublayer of the data link layer. As typically represented, MAC addresses are recognizable as six groups of two hexadecimal digits, separated by hyphens, colons, or without a separator. 
 
+### FreeMac Script
+* helps you to change mac address in memory
+ The device can connect to other devices with a different mac address
+ FreeMac provides some options to choose the vendor mac company, or you can choose the Mac at random or you can cook the mac
+ Also you can use freemac to spoof mac address too
 ## how to use 
 -----------------------------------------------
 
